@@ -21,6 +21,6 @@ app.get('/generateEmbed', async (req, res) => {
                    "</html>");
 });
 
-app.listen(9855, () => {
+app.listen(process.env.PORT || 9855, () => {
     console.log("[Server] Server has started.");
 });
