@@ -14,11 +14,12 @@ app.set('layout extractScripts', true);
 app.get('/generateEmbed', async (req, res) => {
     res.render('embed.ejs', {
         title: req.query.title,
-        description: req.query.desc,
-        url: req.query.linkurl,
-        image_url: req.query.imageurl,
-        large_image_url: req.query.largeurl,
-        color: '#'+req.query.clr
+        description: req.query.description,
+        url: req.query.url,
+        image_url: req.query.image,
+        video_url: req.query.video,
+        color: '#'+req.query.color,
+        author: req.query.author
     });
 });
 
