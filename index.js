@@ -13,10 +13,29 @@ app.get('/generateEmbed', async (req, res) => {
     const large_image_url = req.query.largeurl;
     const color = req.query.clr;
 
+    let meta = "";
+
+    if(title)
+        meta += "<meta content=\""+ title +"\" property=\"og:title\"/>";
+
+    if(description)
+        meta += "<meta content=\""+description+"\" property=\"og:description\" />";
+
+    if(url)
+        meta += "<meta content=\""+url+"\" property=\"og:url\" />";
+
+    if(image_url)
+        meta += "<meta content=\""+image_url+"\" property=\"og:image\" />";
+
+    if(large_image_url)
+        meta += "<meta content=\""+large_image_url+"\" property=\"theme-color\" />";
+
+    if(color)
+        meta += "<meta content=\""+color+"\" property=\"twitter:card\" />";
+
     res.send("<html>" +
                         "<head>" +
-                            "<title>Embed Generator</title>" +
-                            "<meta content=\"Embed Title\" property=\"og:title\"/>" +
+                            "<title>Embed Generator</title>" + meta +
                         "</head>" +
                    "</html>");
 });
