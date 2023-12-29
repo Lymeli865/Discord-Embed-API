@@ -1,45 +1,27 @@
 const express = require('express');
 const app = express();
 
-//mw
+app.set('view engine', 'ejs');
+
+// mw
 app.use(express.json());
 app.enable('trust proxy');
 
+// Set the layout for all views
+app.set('layout', 'layout');
+app.set('layout extractScripts', true);
+
 app.get('/generateEmbed', async (req, res) => {
-    const title = req.query.a;
-    const description = req.query.desc;
-    const url = req.query.linkurl;
-    const image_url = req.query.imageurl;
-    const large_image_url = req.query.largeurl;
-    const color = req.query.clr;
-
-    let meta = "";
-
-    if(title)
-        meta += "<meta content=\""+ title +"\" property=\"og:title\"/>";
-
-    if(description)
-        meta += "<meta content=\""+description+"\" property=\"og:description\" />";
-
-    if(url)
-        meta += "<meta content=\""+url+"\" property=\"og:url\" />";
-
-    if(image_url)
-        meta += "<meta content=\""+image_url+"\" property=\"og:image\" />";
-
-    if(large_image_url)
-        meta += "<meta content=\""+large_image_url+"\" property=\"theme-color\" />";
-
-    if(color)
-        meta += "<meta content=\""+color+"\" property=\"twitter:card\" />";
-
-    res.send("<html>" +
-                        "<head>" +
-                            "<title>Embed Generator</title>" + meta +
-                        "</head>" +
-                   "</html>");
+    res.render('embed.ejs', {
+        title: req.query.title,
+        description: req.query.desc,
+        url: req.query.linkurl,
+        image_url: req.query.imageurl,
+        large_image_url: req.query.largeurl,
+        color: '#'+req.query.clr
+    });
 });
 
-app.listen(process.env.PORT || 9855, () => {
+app.listen(process.env.PORT || 55414, () => {
     console.log("[Server] Server has started.");
 });
